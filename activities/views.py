@@ -6,7 +6,7 @@ from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render, render_to_response, redirect
 from django.utils.encoding import smart_str, smart_unicode
 from django.template import RequestContext
 
@@ -36,24 +36,18 @@ def login(request):
 ############
 
 @login_required
-def index(request, category = None):
-    # Controller interface: View an activity
-    # input: An activity id
-    # return: Rendering an activity page
-
-    # return view_activity(request, Activity.objects.latest('id').id)
+def latest_avt(request, category = None):
     return redirect('/activity/' + str(Activity.objects.latest('id').id))
 
-    # user = request.user
-    # if category:                        # Show activities in a specific category.
-    #     pass
-    # else:
-    #     return render_to_response('index.html',
-    #                               {
-    #                                   'user': user,
-    #                                   'avt': reversed(list(Activity.objects.all()))
-    #                                },
-    #                               context_instance=RequestContext(request))
+@login_required
+def index(request, category = None):
+
+    user = request.user
+    if category:                # Show activities in a specific category.
+        pass
+    else:
+        return render(request, 'index.html',
+            {'user': user, 'avt': reversed(list(Activity.objects.all()))})
 
 def about(request):
 
