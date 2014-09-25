@@ -70,7 +70,7 @@ function confirmRemoveActivity(aid){
 
     {% for a in avt %}
 
-    <a href = 'activity/{{ a.id }}' class="normal"> {{a.summary}}
+    <a href = '/activity/{{ a.id }}' class="normal"> {{a.summary}}
 
         {% if a.created.date != None %}
               - {{a.created.date}} </a>&nbsp;
